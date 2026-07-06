@@ -1,0 +1,11 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/gitIntegration/platformProperties/2.0.0/schema.json",
+  "metadata": {
+    "type": "SemanticModel",
+    "displayName": "Smpl2"
+  },
+  "config": {
+    "version": "2.0",
+    "logicalId": "268a4354-0c46-459a-87e8-be42cf9358ec"
+  }
+}

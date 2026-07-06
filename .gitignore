@@ -1,0 +1,13 @@
+# Internal working notes, not for public repo (references internal project context)
+BUILD-STATUS.md
+
+# OS/editor cruft
+.DS_Store
+Thumbs.db
+
+# Report-layer artifacts from the PBIX->PBIP conversion of the example models — this skill
+# only reads .SemanticModel/definition/, never the .Report/ folder (visuals, bookmarks,
+# custom-visual bundles, images). Keeping only the semantic model out of the example projects.
+examples/*.Report/
+examples/*.SemanticModel/.pbi/
+examples/*.SemanticModel/diagramLayout.json
