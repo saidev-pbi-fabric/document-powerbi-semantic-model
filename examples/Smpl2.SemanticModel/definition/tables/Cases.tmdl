@@ -319,7 +319,7 @@ table Cases
 		mode: import
 		source =
 				let
-				    Source = Excel.Workbook(File.Contents("C:\Users\misewell\OneDrive - Microsoft\Documents\GitHub\ContosoBI\Contoso - Generic\Contoso - PowerBI Source Data.xlsx"), null, true),
+				    Source = Excel.Workbook(File.Contents("C:\Users\<user>\ContosoBI\Contoso - Generic\Contoso - PowerBI Source Data.xlsx"), null, true),
 				    IncidentTbl_Table = Source{[Item="IncidentTbl",Kind="Table"]}[Data],
 				    #"Removed Other Columns" = Table.SelectColumns(IncidentTbl_Table,{"IncidentSeq", "CreatedOn", "Resolution Minutes", "Minutes to First Contact", "Activities", "Status", "SystemUserSeq", "Owner", "AccountSeq", "ProductSeq", "Title", "Origin", "Severity", "Is Escalated", "Is SLA Violation", "Subject", "CustomerSatScore"}),
 				    #"Inserted Text Before Delimiter" = Table.AddColumn(#"Removed Other Columns", "CSAT", each Text.BeforeDelimiter([CustomerSatScore], "-"), type text),

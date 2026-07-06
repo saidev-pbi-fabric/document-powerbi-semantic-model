@@ -53,7 +53,7 @@ table Products
 		mode: import
 		source =
 				let
-				    Source = Excel.Workbook(File.Contents("C:\Users\misewell\OneDrive - Microsoft\Documents\GitHub\ContosoBI\Contoso - Generic\Contoso - PowerBI Source Data.xlsx"), null, true),
+				    Source = Excel.Workbook(File.Contents("C:\Users\<user>\ContosoBI\Contoso - Generic\Contoso - PowerBI Source Data.xlsx"), null, true),
 				    ProductTbl_Table = Source{[Item="ProductTbl",Kind="Table"]}[Data],
 				    #"Removed Columns" = Table.RemoveColumns(ProductTbl_Table,{"Factor"}),
 				    #"Changed Type" = Table.TransformColumnTypes(#"Removed Columns",{{"ProductSeq", Int64.Type}, {"Product", type text}, {"Product LOB", type text}, {"MinOppValue", Currency.Type}, {"MaxOppValue", Currency.Type}}),

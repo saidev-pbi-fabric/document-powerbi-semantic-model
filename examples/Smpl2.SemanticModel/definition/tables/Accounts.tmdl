@@ -213,7 +213,7 @@ table Accounts
 		mode: import
 		source =
 				let
-				    Source = Excel.Workbook(File.Contents("C:\Users\misewell\OneDrive - Microsoft\Documents\GitHub\ContosoBI\Contoso - Generic\Contoso - PowerBI Source Data.xlsx"), null, true),
+				    Source = Excel.Workbook(File.Contents("C:\Users\<user>\ContosoBI\Contoso - Generic\Contoso - PowerBI Source Data.xlsx"), null, true),
 				    AccountTbl_Table = Source{[Item="AccountTbl",Kind="Table"]}[Data],
 				    #"Changed Type" = Table.TransformColumnTypes(AccountTbl_Table,{{"AccountSeq", Int64.Type}, {"AccountID", type text}, {"Account Name", type text}, {"Street", type text}, {"City", type text}, {"State or Province", type any}, {"Postal Code", type text}, {"Country", type text}, {"Latitude", type number}, {"Longitude", type number}, {"Territory", type text}, {"Region", type text}, {"Phone", type text}, {"Number of Employees", Int64.Type}, {"Annual Revenue", Int64.Type}, {"IndustrySeq", Int64.Type}, {"Industry", type text}, {"AccountOwnerSeq", Int64.Type}, {"Account Owner", type text}})
 				in

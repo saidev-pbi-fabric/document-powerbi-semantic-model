@@ -137,7 +137,7 @@ table Contacts
 		mode: import
 		source =
 				let
-				    Source = Excel.Workbook(File.Contents("C:\Users\misewell\OneDrive - Microsoft\Documents\GitHub\ContosoBI\Contoso - Generic\Contoso - PowerBI Source Data.xlsx"), null, true),
+				    Source = Excel.Workbook(File.Contents("C:\Users\<user>\ContosoBI\Contoso - Generic\Contoso - PowerBI Source Data.xlsx"), null, true),
 				    ContactTbl_Table = Source{[Item="ContactTbl",Kind="Table"]}[Data],
 				    #"Changed Type" = Table.TransformColumnTypes(ContactTbl_Table,{{"ContactID", type text}, {"Contact", type text}, {"Job Title", type text}, {"Street", type text}, {"City", type text}, {"State or Province", type text}, {"Postal Code", type text}, {"Country", type text}, {"Latitude", type number}, {"Longitude", type number}, {"Phone", type text}, {"ContactSeq", Int64.Type}, {"AccountSeq", Int64.Type}})
 				in
