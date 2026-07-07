@@ -41,6 +41,12 @@ and prior-period views without needing a separate measure per period."]
 **Documented for reference only — role membership and access grants are out of scope for this
 skill; see the Power BI/Fabric portal for that.**
 
+Before filling in the Filter expression column, check literal string/value comparisons in the
+DAX for confidential business terms (region names, deal/customer codenames, restricted org
+codes) — RLS filters are the most likely place in a model for a business-sensitive literal to
+appear verbatim. Redact/generalize per `privacy-and-redaction.md` before writing the row; don't
+rely solely on the final output-wide check.
+
 | Role | Table | Filter expression (DAX) | Effect |
 |---|---|---|---|
 | [role name] | [table] | `[DAX filter]` | [plain-language: what rows this role can see] |

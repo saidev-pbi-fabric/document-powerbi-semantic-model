@@ -1,0 +1,7 @@
+relationship r1
+	fromColumn: Sales.RegionID
+	toColumn: Region.RegionID
+
+relationship r2
+	fromColumn: Sales.DateKey
+	toColumn: Date.Date

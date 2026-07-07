@@ -1,0 +1,7 @@
+model Model
+	culture: en-US
+	defaultPowerBIDataSourceVersion: powerBI_V3
+	sourceQueryCulture: en-US
+
+	annotation PBI_QueryOrder = ["Date","Region","Sales","Time Intelligence"]
+	annotation PBIDesktopVersion = 2.130.1

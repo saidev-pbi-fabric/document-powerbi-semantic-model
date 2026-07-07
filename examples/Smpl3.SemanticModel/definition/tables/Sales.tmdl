@@ -1,0 +1,35 @@
+table Sales
+	column SalesID
+		dataType: int64
+		isKey
+		isHidden
+		sourceColumn: SalesID
+		summarizeBy: none
+
+	column RegionID
+		dataType: int64
+		isHidden
+		sourceColumn: RegionID
+		summarizeBy: none
+
+	column DateKey
+		dataType: dateTime
+		isHidden
+		sourceColumn: DateKey
+		summarizeBy: none
+
+	column Amount
+		dataType: double
+		sourceColumn: Amount
+		formatString: "$#,0.00"
+		summarizeBy: sum
+
+	measure 'Total Sales' = SUM(Sales[Amount])
+		formatString: "$#,0.00"
+
+	partition Sales = entity
+		mode: directLake
+		source
+			entityName: Sales
+			schemaName: dbo
+			expressionSource: DatabaseQuery

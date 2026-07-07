@@ -1,0 +1,20 @@
+table Region
+	column RegionID
+		dataType: int64
+		isKey
+		isHidden
+		sourceColumn: RegionID
+		summarizeBy: none
+
+	column RegionName
+		dataType: string
+		sourceColumn: RegionName
+		summarizeBy: none
+
+	partition Region = m
+		mode: import
+		source =
+				let
+					Source = Table.FromRows({{1,"North"},{2,"South"},{3,"East"},{4,"West"}})
+				in
+					Source

@@ -11,6 +11,10 @@ redaction doesn't guarantee the generated prose is also clean.
 - File paths containing a username or company-identifying folder structure
 - Internal security group names (e.g., `GSG-*`-style naming, distribution list names)
 - Sample data rows containing real customer, employee, or production business data
+- RLS role filter expressions — the literal values compared against (region names, deal/
+  customer codenames, restricted org codes) are a common vector for confidential business
+  terms, more so than ordinary measure DAX which mostly aggregates over columns rather than
+  embedding literals
 - Proprietary business terms, internal project codenames, or client names — unless the user
   has explicitly confirmed this output is for internal/private use and accepted that scope
 
