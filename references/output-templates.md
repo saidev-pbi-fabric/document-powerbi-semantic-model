@@ -13,6 +13,7 @@ rather than genuine non-applicability).
 | `measures.md` | [measures.md](../assets/templates/measures.md) | Whenever measures exist |
 | `relationships.md` | [relationships.md](../assets/templates/relationships.md) | Whenever more than one table exists |
 | `ai-readiness-review.md` | [ai-readiness-review.md](../assets/templates/ai-readiness-review.md) | Only when explicitly requested |
+| `security-and-extensions.md` | [security-and-extensions.md](../assets/templates/security-and-extensions.md) | Whenever hierarchies, calculation groups, perspectives, or RLS roles exist in the model |
 | `open-questions.md` | (no fixed template — free-form list) | Whenever any gap/ambiguity/uncertainty was found during the pass |
 
 ## `open-questions.md` shape

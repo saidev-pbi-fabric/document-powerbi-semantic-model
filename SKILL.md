@@ -3,13 +3,17 @@ name: document-powerbi-semantic-model
 description: >-
   Document Power BI semantic models from TMDL, PBIP, model metadata exports (BIM/JSON),
   Tabular Editor script output, XMLA metadata exports, DAX measure lists, or user-provided
-  schema notes. Use when creating business-facing or technical Markdown documentation for
-  tables, columns, measures, relationships, hierarchies, calculation groups, perspectives,
-  partitions, data sources, model design, DAX logic, data dictionaries, onboarding guides, or
-  AI/Copilot readiness reviews. Complementary to `semantic-model-authoring`, which creates,
-  edits, and deploys models — this skill explains and documents an existing one, it does not
-  modify it. Does not edit, deploy, or publish models, and does not manage workspace
-  permissions or RLS/OLS role membership.
+  schema notes — for tables, columns, measures, relationships, hierarchies, calculation
+  groups, perspectives, RLS roles, partitions, and data sources. Use whenever documenting from
+  static files/exports with no live model connection: an inherited PBIP project with zero
+  comments, a model export or XMLA/TMSCHEMA dump someone sent you, calculation groups or RLS
+  roles left by a prior consultant, or rough pasted notes about tables and columns. Produces
+  Markdown: data dictionaries, plain-language measure explanations, relationship/modeling
+  reviews, model overviews, onboarding docs, or AI/Copilot readiness reviews. If there's an
+  active live connection (e.g. `pbi connect`), use `power-bi-docs` instead. Complementary to
+  `semantic-model-authoring`, which creates, edits, and deploys models — this skill explains
+  and documents an existing one, it does not modify it. Does not edit, deploy, or publish
+  models, and does not manage workspace permissions or RLS/OLS role membership.
 ---
 
 # Power BI Semantic Model Documentation
@@ -56,8 +60,9 @@ than guessing which files matter.**
 Load [documentation-workflow.md](./references/documentation-workflow.md) and
 [tmdl-and-pbip-inspection.md](./references/tmdl-and-pbip-inspection.md) (if the source is
 TMDL/PBIP). Catalog every table, column, measure, relationship, hierarchy, calculation group,
-perspective, partition, and data source you can find. Note anything you cannot determine
-(hidden logic, undocumented columns) rather than inventing an explanation.
+perspective, RLS role (for documentation purposes only — see DENY section), partition, and
+data source you can find. Note anything you cannot determine (hidden logic, undocumented
+columns) rather than inventing an explanation.
 
 ### 3. Map business domains
 
@@ -88,7 +93,8 @@ certified/core status.
 Load [output-templates.md](./references/output-templates.md) to decide which files to
 produce, then use the matching file(s) under `assets/templates/` as the exact structure —
 don't invent a different shape. Typical output set: `index.md`, `model-overview.md`,
-`data-dictionary.md`, `measures.md`, `relationships.md`, and (when requested)
+`data-dictionary.md`, `measures.md`, `relationships.md`, `security-and-extensions.md` (when
+hierarchies, calculation groups, perspectives, or RLS roles exist), and (when requested)
 `ai-readiness-review.md`.
 
 ### 8. Run the privacy check (again)
@@ -113,6 +119,7 @@ omitting them.
 | `data-dictionary.md` | Always — every table/column with type, description, source |
 | `measures.md` | Always if any measures exist — grouped by business area, plain-language + DAX |
 | `relationships.md` | Always if more than one table — star schema shape, risks flagged |
+| `security-and-extensions.md` | Whenever hierarchies, calculation groups, perspectives, or RLS roles exist |
 | `ai-readiness-review.md` | Only when explicitly requested |
 | `open-questions.md` | Whenever any gap/ambiguity was found — do not omit this file to look more complete than the source supports |
 
@@ -132,7 +139,7 @@ Before presenting documentation as finished, confirm:
 | Topic | Reference | When to load |
 |---|---|---|
 | Recognizing input types | [source-types.md](./references/source-types.md) | First — before inspecting anything |
-| Standard sequence | [documentation-workflow.md](./references/documentation-workflow.md) | Once source type is known |
+| Inventory & domain-mapping depth | [documentation-workflow.md](./references/documentation-workflow.md) | When building the inventory (step 2) or mapping business domains (step 3) |
 | TMDL/PBIP file patterns | [tmdl-and-pbip-inspection.md](./references/tmdl-and-pbip-inspection.md) | When source is TMDL or PBIP |
 | Explaining DAX | [dax-explanation.md](./references/dax-explanation.md) | Before writing any measure explanation |
 | Relationship/modeling review | [relationship-and-modeling-review.md](./references/relationship-and-modeling-review.md) | Before writing `relationships.md` |
