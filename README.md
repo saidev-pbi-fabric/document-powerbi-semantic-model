@@ -19,8 +19,8 @@ it. It won't touch the model, deploy anything, or manage permissions.
 
 ```mermaid
 flowchart LR
-    A["TMDL folder<br/>PBIP project<br/>BIM / JSON export<br/>Tabular Editor dump<br/>or just notes"] --> B["This skill:<br/>reads the model<br/>explains the DAX<br/>flags relationship risks<br/>redacts anything sensitive"]
-    B --> C["Data dictionary<br/>Measures explained<br/>Relationship risks<br/>AI-readiness review<br/>Open questions"]
+    A["Your model files<br/>(TMDL, PBIP, or notes)"] --> B["Reads it<br/>Explains it<br/>Flags the risks"]
+    B --> C["Docs you<br/>can actually use"]
 ```
 
 What you feed it, what it does, what you get back. The rest of this README is detail on each
