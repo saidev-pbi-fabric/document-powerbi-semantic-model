@@ -15,6 +15,29 @@ This is the counterpart to Microsoft's own `semantic-model-authoring` skill (par
 model and explains it, so someone other than the person who built it can actually understand
 it. It won't touch the model, deploy anything, or manage permissions.
 
+## How it works
+
+```mermaid
+flowchart LR
+    A["TMDL folder
+    PBIP project
+    BIM / JSON export
+    Tabular Editor dump
+    or just notes"] --> B["This skill:
+    reads the model
+    explains the DAX
+    flags relationship risks
+    redacts anything sensitive"]
+    B --> C["Data dictionary
+    Measures explained
+    Relationship risks
+    AI-readiness review
+    Open questions"]
+```
+
+What you feed it, what it does, what you get back. The rest of this README is detail on each
+of those three boxes.
+
 ## Why this exists
 
 Every Power BI team eventually inherits a report like this: a small tweak comes in, or a
