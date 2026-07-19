@@ -18,6 +18,18 @@ Neither relationship has an explicit `fromCardinality`/`toCardinality` set in
 each dimension, which matches the tables' apparent fact/dimension roles, so this isn't flagged
 as an open question.
 
+## Diagram
+
+```mermaid
+erDiagram
+    Region ||--o{ Sales : "RegionID -> RegionID"
+    Date ||--o{ Sales : "Date -> DateKey"
+```
+
+*(Both relationships from the table above are represented; none are added or omitted.
+`Time Intelligence` is a calculation group, not a relational table, so — per Model shape above —
+it has no relationships and isn't shown.)*
+
 ## Date table
 
 `Date` is marked as the model's date table (`isDateTable`) and connects to `Sales` via

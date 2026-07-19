@@ -31,6 +31,36 @@ share dimensions). `Contacts`, `Industries`, and `Campaigns` are single-purpose 
 one explicit override. Declared cardinality reflects the TMDL definition, not independently
 re-verified against live row counts this pass.)*
 
+## Diagram
+
+```mermaid
+erDiagram
+    Owners ||--o{ Accounts : "Sales owner -> Account Owner (ACTIVE - name-based, fragile)"
+    Owners ||--o{ Opportunities : "SystemUserSeq -> SystemUserSeq (INACTIVE - ID-based, more reliable)"
+    Owners ||--o{ Cases : "SystemUserSeq -> SystemUserSeq (INACTIVE - ID-based, more reliable)"
+    Accounts ||--o{ Opportunities : "AccountSeq -> AccountSeq"
+    Accounts ||--o{ Cases : "AccountSeq -> AccountSeq"
+    Accounts ||--o{ Contacts : "AccountSeq -> AccountSeq"
+    Industries ||--o{ Accounts : "IndustrySeq -> IndustrySeq"
+    Products ||--o{ Opportunities : "ProductSeq -> ProductSeq"
+    Products ||--o{ Cases : "ProductSeq -> ProductSeq"
+    Opportunity_Calendar ||--o{ Opportunities : "DAY -> CloseDate"
+    Campaigns ||--o{ Opportunities : "CampaignSeq -> CampaignSeq"
+    Case_Calendar ||--o{ Cases : "Date -> Case Created On"
+    Auto_Date_Table ||--o{ Opportunities : "Date -> Opportunity Created On (Power BI auto-generated)"
+    Auto_Date_Tables_x4 ||--o{ Opportunity_Calendar : "4 date columns -> their own auto date tables (plumbing)"
+```
+
+*(All 14 relationships from the table above are represented; none are added or omitted.
+`Territories` is deliberately not shown — the Relationships table above has no row connecting
+it to anything, so drawing an edge for it would invent a relationship that isn't documented;
+see Findings below. `Auto_Date_Table` and `Auto_Date_Tables_x4` are Power BI-auto-generated
+date tables that aren't individually named in the source review, shown generically to match
+what's actually documented. The two owner-lookup edges above are the model's single biggest
+finding: the **active** path from `Accounts` to `Owners` is a text/name match, while the
+**inactive**, more reliable ID-based paths from `Opportunities` and `Cases` sit unused — see
+Findings for why that matters.)*
+
 ## Date tables
 
 Two purpose-built calendar tables exist: `Case Calendar` (scoped to `Cases[Case Created On]`'s

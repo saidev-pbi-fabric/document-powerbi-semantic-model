@@ -33,6 +33,32 @@ explicit `fromCardinality: one` override, confirming `Lats` holds exactly one ro
 Declared cardinality reflects the TMDL definition, not independently re-verified against live
 row counts this pass.)*
 
+## Diagram
+
+```mermaid
+erDiagram
+    Countries ||--o{ Govt_Measures : "ISO -> ISO"
+    Countries ||--o{ Cases_per_country : "Country -> Country"
+    Countries ||--o{ OWID_COVID_data : "ISO -> iso_code"
+    Countries ||--o{ CGRT_Mandates : "Country -> CountryName"
+    Countries ||--o{ GDP_History : "ISO -> ISO"
+    Countries ||--o{ Days_with_restrictions : "ISO -> CountryCode (bidirectional)"
+    Countries ||--o{ Days_with_restrictions_grouped : "ISO -> CountryCode (bidirectional)"
+    States ||--o{ Cases_per_US_State : "State -> State"
+    States ||--|| Lats : "State -> State (one-to-one override, bidirectional)"
+    Dates ||--o{ Cases_per_US_State : "Date -> Date"
+    Dates ||--o{ Cases_per_country : "Date -> Date"
+    Dates ||--o{ Govt_Measures : "Date -> Date implemented"
+    Dates ||--o{ OWID_COVID_data : "Date -> date"
+    LocalDateTable_auto ||--o{ Govt_Measures : "Date -> Entry date"
+```
+
+*(Entity names use underscores in place of spaces from the original table names — see the
+Relationships table above for the exact TMDL names. `LocalDateTable_auto` is the
+Power-BI-auto-generated date table `Govt Measures[Entry date]` connects to instead of the
+model's own `Dates` table, as described under Date table below. All 14 relationships from the
+table above are represented; none are added or omitted.)*
+
 ## Date table
 
 `Dates` is the model's primary date table (manually built via `CALENDARAUTO()`), and is the
