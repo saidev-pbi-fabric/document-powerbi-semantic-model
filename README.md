@@ -19,20 +19,8 @@ it. It won't touch the model, deploy anything, or manage permissions.
 
 ```mermaid
 flowchart LR
-    A["TMDL folder
-    PBIP project
-    BIM / JSON export
-    Tabular Editor dump
-    or just notes"] --> B["This skill:
-    reads the model
-    explains the DAX
-    flags relationship risks
-    redacts anything sensitive"]
-    B --> C["Data dictionary
-    Measures explained
-    Relationship risks
-    AI-readiness review
-    Open questions"]
+    A["TMDL folder<br/>PBIP project<br/>BIM / JSON export<br/>Tabular Editor dump<br/>or just notes"] --> B["This skill:<br/>reads the model<br/>explains the DAX<br/>flags relationship risks<br/>redacts anything sensitive"]
+    B --> C["Data dictionary<br/>Measures explained<br/>Relationship risks<br/>AI-readiness review<br/>Open questions"]
 ```
 
 What you feed it, what it does, what you get back. The rest of this README is detail on each
@@ -154,14 +142,12 @@ erDiagram
     Owners ||--o{ Accounts : "Sales owner -> Account Owner (ACTIVE - fragile text match)"
     Owners ||--o{ Opportunities : "SystemUserSeq -> SystemUserSeq (INACTIVE - reliable ID match)"
     Owners ||--o{ Cases : "SystemUserSeq -> SystemUserSeq (INACTIVE - reliable ID match)"
-    Accounts ||--o{ Opportunities : "AccountSeq -> AccountSeq"
-    Accounts ||--o{ Cases : "AccountSeq -> AccountSeq"
 ```
 
-The finding this makes visible: the **active** owner join is a text/name match, and the
-**inactive**, more reliable ID-based join sits unused right next to it, twice. That's the kind
-of thing this skill is built to catch, shown plainly instead of buried in 40 tables of TMDL. Full
-diagram (14 relationships) is in the example file linked above.
+Same table, three ways to join it. The one actually driving the model today is the risky one.
+The two safer ones exist and do nothing. That's the kind of thing this skill is built to catch,
+shown plainly instead of buried in 40 tables of TMDL. Full diagram (14 relationships, the whole
+model) is in the example file linked above.
 
 ## Structure
 
