@@ -17,16 +17,31 @@ it. It won't touch the model, deploy anything, or manage permissions.
 
 ## Why this exists
 
-Most Power BI documentation tooling assumes you have a live Desktop connection or an XMLA
-endpoint open. In practice, a lot of documentation work doesn't start that way: someone hands
-you a TMDL export, you're reviewing a PBIP project someone else built, or you've got a metadata
-dump from Tabular Editor and nothing else. This skill is built for that situation. Point it at
-whatever you actually have, and it writes the docs without needing a live connection to
-anything.
+Every Power BI team eventually inherits a report like this: a small tweak comes in, or a
+business user says a visual is showing the wrong numbers, or a report just feels slow. The
+person who built it left the company months ago. There's no documentation. You open the model
+and the DAX is written in someone else's style, everyone has their own conventions, so even
+pasting a measure into an LLM only gets you so far. It can explain the syntax. It can't explain
+what the measure actually means without knowing the model and business context sitting around
+it.
+
+That's the specific gap this closes: point it at the model, and it builds that missing context,
+what each table and measure is actually for, how the relationships really work, where the real
+risk is, in plain language.
+
+It's not limited to inherited reports. If you build a model from scratch, you can run this the
+same way to hand someone else clean documentation. But the reason it exists is the undocumented
+one nobody else can explain.
+
+The other half of the problem: most Power BI documentation tooling assumes a live Desktop
+connection or an open XMLA endpoint. A lot of real documentation work doesn't start that way,
+someone hands you a TMDL export, a PBIP project you didn't build, or a metadata dump from
+Tabular Editor and nothing else. This skill works from whatever you actually have, no live
+connection needed.
 
 I built this after spending time reading through Microsoft's own `skills-for-fabric` collection
 and noticing the gap: plenty of tooling for building and editing models, not much for making an
-existing one legible to someone who didn't build it. That's the problem this solves.
+existing one legible to someone who didn't build it.
 
 ## What a .pbip project actually is
 
@@ -108,18 +123,22 @@ inactive, a filter that's commented out inside otherwise-live DAX, a column whos
 is `BLANK()`, a table with no relationship to anything else in the model. Nothing invented,
 just what was actually in the TMDL.
 
-Here's an actual excerpt from `examples/Smpl2-docs/relationships.md`, not a mockup:
+Here's the actual relationship diagram from `examples/Smpl2-docs/relationships.md`, not a
+mockup, generated from the real TMDL:
 
-```markdown
-| From | To | Cardinality | Cross-filter | Active? |
-|---|---|---|---|---|
-| `Accounts[Account Owner]` | `Owners[Sales owner]` | Many-to-one (default) | Single | Yes |
-| `Opportunities[SystemUserSeq]` | `Owners[SystemUserSeq]` | Many-to-one (default) | Single | **No** |
+```mermaid
+erDiagram
+    Owners ||--o{ Accounts : "Sales owner -> Account Owner (ACTIVE - fragile text match)"
+    Owners ||--o{ Opportunities : "SystemUserSeq -> SystemUserSeq (INACTIVE - reliable ID match)"
+    Owners ||--o{ Cases : "SystemUserSeq -> SystemUserSeq (INACTIVE - reliable ID match)"
+    Accounts ||--o{ Opportunities : "AccountSeq -> AccountSeq"
+    Accounts ||--o{ Cases : "AccountSeq -> AccountSeq"
 ```
 
-The finding this table leads to: the **active** owner join is a text/name match, and the
-**inactive**, more reliable ID-based join sits unused right next to it. That's the kind of thing
-this skill is built to catch, stated plainly instead of buried in 40 tables of TMDL.
+The finding this makes visible: the **active** owner join is a text/name match, and the
+**inactive**, more reliable ID-based join sits unused right next to it, twice. That's the kind
+of thing this skill is built to catch, shown plainly instead of buried in 40 tables of TMDL. Full
+diagram (14 relationships) is in the example file linked above.
 
 ## Structure
 
